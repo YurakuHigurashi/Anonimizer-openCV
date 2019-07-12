@@ -9,7 +9,6 @@
 
 #include <detector_.h>
 #include <detector.h>
-#include <videocap.h>
 
 
 //namespace fs = boost::filesystem;
@@ -98,14 +97,7 @@ int main(int argc, char **argv) {
   
 	MTCNNDetector detector(pConfig, rConfig, oConfig);
 	cv::Mat img = cv::imread(parser.get<string>("video_name"));
-	bool b = true;
-	if (b)
-	{
-		videocap(video_name, start_frame, frame_step, detector);
-		return 0;
-	}
-
-
+	
 	std::vector<Face> faces;
 	//std::vector<Faces> faces;
 	
