@@ -18,17 +18,37 @@ using namespace cv::dnn;
 using rectPoints = std::pair<cv::Rect, std::vector<cv::Point>>;
 
 
-static cv::Mat drawRectsAndPoints(const cv::Mat &img,
+static cv::Mat drawRectsAndPoints(const cv::Mat &img, cv::Mat &filt, cv::Mat &filt_al,
 	const std::vector<rectPoints> data) {
 	cv::Mat outImg;
 	img.convertTo(outImg, CV_8UC3);
 	for (auto &d : data) {
 		cv::rectangle(outImg, d.first, cv::Scalar(0, 0, 255));
-		auto pts = d.second;
+
+		Mat mat(d.first.height,d.first.width,img.type());
+		img(Rect(d.first.x, d.first.y, d.first.width, d.first.height)).copyTo(mat(Rect(0,0,mat.cols,mat.rows)));
+		
+		resize(filt, filt, Size(mat.cols, mat.rows));
+		resize(filt_al, filt_al, Size(mat.cols, mat.rows));
+		Mat temp(mat.cols,mat.rows,mat.type());
+		filt.convertTo(filt, mat.type());
+		mat.convertTo(temp, mat.type());
+		filt_al.convertTo(filt_al, mat.type(), 1.0 / 255);
+
+		mat::zeros
+
+		multiply(filt_al, filt, filt);
+
+
+
+		//imshow("12",mat);
+
+		/*auto pts = d.second;
 		for (size_t i = 0; i < pts.size(); ++i) {
 			cv::circle(outImg, pts[i], 3, cv::Scalar(0, 0, 255));
-		}
+		}*/
 	}
+
 	return outImg;
 }
 
