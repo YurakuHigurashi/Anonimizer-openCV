@@ -32,7 +32,7 @@ static cv::Mat drawRectsAndPoints(const cv::Mat &img,
 	return outImg;
 }
 
-int videocap(string video_name,int start_frame, int frame_step,MTCNNDetector &detector,cv::Mat& mat) {
+int videocap(string video_name,int start_frame, int frame_step,MTCNNDetector &detector) {
 
 	///
 	VideoCapture cap;
